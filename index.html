@@ -50,7 +50,7 @@
 <div class="error" id="errorMsg"></div>
 
 <script>
-const sheetUrl = 'https://script.google.com/macros/s/AKfycbyi98w6Rpxpp6fAaEU9UW7RnuaMynZWXIeFp30kT0h7/dev'; // Replace with your Apps Script URL
+const sheetUrl = 'https://script.google.com/macros/s/AKfycbwXDyxfrGFdba66SGZ3B05Hyxy1lEsJuOjzScrUQpHvx1_zBDZfGfnnf446V366Gtyn8g/exec'; // Replace with your Apps Script URL
 
 // Set today's date
 document.getElementById('date').valueAsDate = new Date();
@@ -137,5 +137,56 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
 });
 </script>
 
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Today's Bookings Dashboard</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #fff; margin: 20px; }
+  h1 { text-align: center; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+</style>
+</head>
+<body>
+<h1>Today's Bookings</h1>
+<table id="bookingTable">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Participants</th>
+      <th>Booked By</th>
+      <th>School</th>
+      <th>Course</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<script>
+const sheetUrl = 'https://script.google.com/macros/s/AKfycbwXDyxfrGFdba66SGZ3B05Hyxy1lEsJuOjzScrUQpHvx1_zBDZfGfnnf446V366Gtyn8g/exec'; // Same or different endpoint to get data
+
+fetch('YOUR_GET_BOOKINGS_ENDPOINT') // You need to implement GET endpoint in Apps Script
+.then(res => res.json())
+.then(data => {
+  const tbody = document.getElementById('bookingTable').querySelector('tbody');
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.startTime} - ${row.endTime}</td>
+      <td>${row.participants}</td>
+      <td>${row.bookedBy}</td>
+      <td>${row.school}</td>
+      <td>${row.course}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+});
+</script>
 </body>
 </html>
